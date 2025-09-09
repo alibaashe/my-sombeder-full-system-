@@ -1,0 +1,118 @@
+Thank you for purchasing EZBus. If you have any questions that are beyond the scope of this help file, please feel free to contact me via my user page contact form at envato. Thanks so much!
+
+If you did not install the product before, please go to the documentation folder.
+
+
+If you already purchased and installed the product and you want to upgrade to V2.2 only, please follow the following steps. Please also check the configuration section in the documentation of the backend.
+
+What is new?
+-------------
+The update adds the following to the system.
+
+1 - We have introduced a new feature that allows customers to select their seats when booking a bus ticket. Additionally, admin now have the capability to configure the bus layout, including the seat arrangement. There is also a new option on the admin settings page that turns the seat selection option for customers on or off.
+2 - We have introduced a new feature that enables admin to track all running buses in real-time on the web panel.
+3 - We have replaced the QR code scanner with a newer, faster one.
+4 - Some bug fixes.
+
+
+Backend
+-------
+1 - Overwrite the files at the following folders with the files provided in the updated code.
+.env.example
+app/Http/Controllers/Api/BusController.php
+app/Http/Controllers/Api/DriverController.php
+app/Http/Controllers/Api/GoogleRouteController.php
+app/Http/Controllers/Api/SettingController.php
+app/Http/Controllers/Api/TripController.php
+app/Http/Controllers/Api/UserController.php
+app/Services/GoogleRoutesService.php
+front-end/.env.production.example
+front-end/package-lock.json
+front-end/package.json
+front-end/src/bootstrap.js
+front-end/src/config.js
+front-end/src/layouts/components/vertical-nav-menu/VerticalNavMenu.vue
+front-end/src/router/index.js
+front-end/src/views/settings/index.vue
+front-end/src/views/system-setup/buses/index.vue
+front-end/src/views/system-setup/routes/create-edit.vue
+front-end/src/views/system-setup/routes/view.vue
+front-end/src/views/system-setup/stops/create-edit.vue
+front-end/src/views/system-setup/stops/view.vue
+public/index.html
+routes/api.php
+
+2 -Add these new files:
+database/migrations/2021_08_01_000046_add_seat_config_to_buses_table.php
+database/migrations/2021_08_01_000047_add_seat_selection_to_settings_table.php
+database/migrations/2021_08_01_000048_add_seat_number_to_customer_reserved_trips_table.php
+front-end/src/views/live-tracking/*
+front-end/src/views/system-setup/buses/BusSeatConfigurator.vue
+
+
+3 - add to your .env.production file in the front-end folder the following lines:
+# Origin Latitude
+VUE_APP_ORIGIN_LAT=40.712776
+# Origin Longitude
+VUE_APP_ORIGIN_LNG=-74.005974
+
+4 - Run the following:
+
+php artisan migrate 
+
+cd front-end
+npm install
+npm run build && cp -r dist/* ../public/
+
+
+Customer app upgrade guide
+--------------------------
+1 - Overwrite the files at the following folders with the files provided in the updated code.
+
+android/gradle.properties
+lib/connection/all_apis.dart
+lib/connection/response/payments_response.dart
+lib/connection/response/trip_search_response.dart
+lib/gui/languages/l10n/app_en.arb
+lib/gui/screens/choose_trip_screen.dart
+lib/gui/screens/pay_for_trip_screen.dart
+lib/gui/widgets/ticket_widget.dart
+lib/model/reservation.dart
+lib/model/setting.dart
+lib/model/trip.dart
+lib/utils/config.dart
+lib/view_models/this_application_view_model.dart
+pubspec.lock
+
+2 -Add these new files:
+lib/gui/screens/seats_screen.dart
+lib/model/bus.dart
+lib/model/bus_configuration.dart
+lib/model/seat.dart
+
+3 - Run:
+flutter clean
+flutter pub get
+
+
+Driver app upgrade guide
+--------------------------
+1 - Overwrite the files at the following folders with the files provided in the updated code.
+
+android/app/src/main/AndroidManifest.xml
+android/gradle.properties
+lib/gui/screens/running_trip_screen.dart
+lib/utils/config.dart
+lib/view_models/this_application_view_model.dart
+pubspec.lock
+pubspec.yaml
+
+2 -Add these new files:
+lib/gui/screens/qrcode_scanner_screen.dart
+
+
+3 - Run:
+flutter clean
+flutter pub get
+
+
